@@ -21,6 +21,12 @@
   notify:
     - restart fail2ban
 
+### present: auditd
+- name: Make sure auditd is installed
+  apt: pkg=auditd state=latest update_cache=true
+  notify:
+    - restart auditd
+
 ### config: ssh
 - name: Configure ssh
   template: src=sshd_config.j2 dest=/etc/ssh/sshd_config owner=root group=root mode=0644
