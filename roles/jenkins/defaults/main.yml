@@ -1,0 +1,18 @@
+---
+jenkins_hostname:
+jenkins_jar: /var/lib/jenkins/jenkins-cli.jar
+jenkins_repo_url: deb http://pkg.jenkins-ci.org/debian binary/
+jenkins_repo_key: https://jenkins-ci.org/debian/jenkins-ci.org.key
+
+jenkins_plugins:
+  - audit-trail
+  - disk-usage
+  - docker-build-step
+  - ec2
+  - git
+  - git-client
+  - google-login
+  - greenballs
+  - rake
+  - ssh-credentials
+  - ssh-slaves

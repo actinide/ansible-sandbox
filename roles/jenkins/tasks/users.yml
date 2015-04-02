@@ -1,0 +1,18 @@
+### roles/jenkins/tasks/users.yml
+###
+### Creates user configs if not already present and manages a cron job
+### that regularly pushes user configs back to S3.
+###
+### Authored 3/2015 by Heather Huggins
+
+---
+- name: Grab the user configs if they don't already exist
+  command: script-pullusers.sh creates=/var/lib/jenkins/users/
+
+- name: Create cron job that compresses and uploads user data daily
+  cron:
+    name: "push user configs"
+    minute: "0"
+    hour: "3"
+    weekday: "6"
+    job: "tar -cvzf users.tar.gz /var/lib/jenkins/users/ && aws s3 cp --region us-east-1 /var/lib/jenkins/users.tar.gz s3://ops-jenkins/users/users.tar.gz"

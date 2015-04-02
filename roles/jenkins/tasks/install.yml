@@ -1,0 +1,37 @@
+### roles/jenkins/tasks/install.yml
+###
+### Runs through the installation tasks for Jenkins.
+###
+### Authored 3/2015 by Heather Huggins
+---
+
+# Make sure install dependencies are installed
+# (Department of Redundancy Department)
+- name: Install curl
+  apt: pkg=curl state=installed
+
+- name: Install wget
+  apt: pkg=wget state=installed
+
+- name: Install docker
+  apt: pkg=docker.io state=installed
+
+- name: Install awscli
+  pip: name=awscli
+
+
+# Install Jenkins
+- name: Add the Jenkins repo key
+  apt_key:
+    url: "{{ jenkins_repo_key }}"
+    validate_certs: no
+    state: present
+
+- name: Add the Jenkins repo
+  apt_repository:
+    repo: "{{ jenkins_repo_url }}"
+    state: present
+    update_cache: yes
+
+- name: Install Jenkins
+  apt: pkg=jenkins state=installed

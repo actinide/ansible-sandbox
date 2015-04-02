@@ -1,0 +1,7 @@
+---
+- name: jenkins image
+  hosts: self
+  sudo: true
+
+  roles:
+    - { role: jenkins }
