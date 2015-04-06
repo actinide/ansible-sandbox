@@ -1,0 +1,11 @@
+### roles/hardened/tasks/main.yml
+###
+### Hardens Ubuntu servers
+###
+### Authored 3/2015 by Heather Huggins
+---
+- name: Patching and updates (CIS Section 1)
+  include: patch.yml
+
+- name: Securing the filesystem (CIS Section 2)
+  include: filesystem.yml

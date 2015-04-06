@@ -34,7 +34,7 @@
     - restart ssh
 
 ### Make sure everything restarts when/if there's a reboot
-name: Make sure everything restarts when/if there's a reboot
+- name: Make sure everything restarts when/if there's a reboot
   service: name={{ item }} state=started enabled=yes
   with_items:
     - ssh

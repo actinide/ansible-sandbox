@@ -1,5 +1,5 @@
 ---
-- name: hardened instance
+- name: Hardening for all servers
   hosts: self
   sudo: true
 
