@@ -12,5 +12,5 @@
   apt: update_cache=yes cache_valid_time=3600
 
 ### Now patch all the things
-- name: Patching the system
+- name: Patch everything
   apt: upgrade=safe

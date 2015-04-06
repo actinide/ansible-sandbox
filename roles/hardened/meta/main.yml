@@ -3,8 +3,8 @@ dependencies: []
 
 galaxy_info:
   author: Heather Huggins
-  description: System hardening for Debian based systems
-  company: -
+  description: System hardening for Debian based systems, modified from CIS benchmark for Ubuntu 14.04
+  company: NA
   license: BSD
   min_ansible_version: 1.4
   platforms:

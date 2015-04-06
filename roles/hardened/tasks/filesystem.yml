@@ -1,0 +1,17 @@
+### roles/filesystem.yml -
+### Authored 2015 by Heather Huggins
+###
+### CIS Benchmark 2.1 Create a separate partition for /tmp/
+### CIS Benchmark 2.2 Set nodev option for /tmp/
+### CIS Benchmark 2.3 Set nosuid option for /tmp/
+### CIS Benchmark 2.4 Set noexec option for /tmp/
+
+---
+- name: Check whether /tmp/ is a separate partition
+  shell: grep "[[:space:]]/tmp[[:space:]]" /etc/fstab
+  ignore_errors: true
+  register: tmpexists
+
+- name: Create a /tmp/ partition if it doesn't exist
+  lvol: vg=tmp lv=tmp size=20%FREE
+  only_if: "${tmpexists} == 0"

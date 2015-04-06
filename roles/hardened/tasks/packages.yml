@@ -2,11 +2,11 @@
 ###                      basic configuration.
 ### Authored 2015 by Heather Huggins
 ###
-### CIS Benchmark: 5.1.1 Ensure NIS is not installed
-### CIS Benchmark: 5.1.3 Ensure rsh client is not installed
-### CIS Benchmark: 5.1.5 Ensure talk client is not installed
-### CIS Benchmark: 6.1 Ensure the X Window system is not installed
-### CIS Benchmark: 6.6 Ensure LDAP is not enabled
+### CIS Benchmark 5.1.1 Ensure NIS is not installed
+### CIS Benchmark 5.1.3 Ensure rsh client is not installed
+### CIS Benchmark 5.1.5 Ensure talk client is not installed
+### CIS Benchmark 6.1 Ensure the X Window system is not installed
+### CIS Benchmark 6.6 Ensure LDAP is not enabled
 
 ---
 ### present: ssh

@@ -1,0 +1,7 @@
+---
+- name: hardened instance
+  hosts: self
+  sudo: true
+
+  roles:
+    - { role: hardened }
