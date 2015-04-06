@@ -4,8 +4,9 @@
 ###
 ### Authored 3/2015 by Heather Huggins
 ---
-- name: Patching and updates (CIS Section 1)
-  include: patch.yml
 
-- name: Securing the filesystem (CIS Section 2)
-  include: filesystem.yml
+# Patching and updating the system (CIS Section 1)
+- include: patch.yml
+
+# Securing the filesystem (CIS Section 2)
+- include: filesystem.yml
