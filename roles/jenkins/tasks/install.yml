@@ -7,17 +7,20 @@
 
 # Make sure install dependencies are installed
 # (Department of Redundancy Department)
-- name: Install curl
-  apt: pkg=curl state=installed
+- name: Update apt-get
+  command: apt-get update
 
-- name: Install wget
-  apt: pkg=wget state=installed
+- name: Install dependencies
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - curl
+    - wget
+    - docker.io
+    - python-dev
+    - python-pip
 
-- name: Install docker
-  apt: pkg=docker.io state=installed
-
-- name: Install awscli
-  pip: name=awscli
+- name: Install boto
+  pip: name=boto
 
 
 # Install Jenkins

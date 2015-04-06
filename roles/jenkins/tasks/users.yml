@@ -6,8 +6,23 @@
 ### Authored 3/2015 by Heather Huggins
 
 ---
+- name: Include AWS credential variables
+  include_vars: aws.yml
+
 - name: Grab the user configs if they don't already exist
-  command: script-pullusers.sh creates=/var/lib/jenkins/users/
+  s3:
+    bucket: ops-jenkins
+    object: /users/users.tar.gz
+    dest: /var/lib/jenkins/users.tar.gz
+    mode: get
+    overwrite: false
+    aws_access_key: "{{ access_key }}"
+    aws_secret_key: "{{ secret_key }}"
+
+- name: Place user configs where they should be
+  shell: >
+    gunzip /var/lib/jenkins/users.tar.gz && tar -xvf /var/lib/jenkins/users.tar -C /var/lib/jenkins/ && chown -R jenkins:jenkins /var/lib/jenkins/users/ && rm users.tar
+  ignore_errors: yes
 
 - name: Create cron job that compresses and uploads user data daily
   cron:

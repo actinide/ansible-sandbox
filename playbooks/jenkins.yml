@@ -1,5 +1,5 @@
 ---
-- name: jenkins image
+- name: Creating a Jenkins server
   hosts: self
   sudo: true
 

@@ -29,6 +29,7 @@
 
 # Install plugins
 - include: plugins.yml
+  notify: restart jenkins
 
 # Create and configure users
 - include: users.yml
