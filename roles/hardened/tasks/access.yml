@@ -61,11 +61,11 @@
   notify: restart sshd
 
 - name: Set SSH HostbasedAuthentication to no
-  lineinfile: dest=/etc/ssh/sshd_config regext="^HostbasedAuthentication " line="HostbasedAuthentication no"
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^HostbasedAuthentication " line="HostbasedAuthentication no"
   notify: restart sshd
 
 - name: Set SSH PermitEmptyPasswords to no
-  lineinfile: dest=/etc/ssh/sshd_config regext="^PermitEmptyPasswords " line="PermitEmptyPasswords no"
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitEmptyPasswords " line="PermitEmptyPasswords no"
   notify: restart sshd
 
 - name: Set SSH banner
