@@ -21,17 +21,17 @@
 ---
 - name: Set owner and permissions on cron files
   file:
-    path: "/etc/{{ item }}"
+    path: /etc/{{ item }}
     owner: root
     group: root
     mode: 0600
-    with_items:
-      - crontab
-      - cron.hourly
-      - cron.daily
-      - cron.weekly
-      - cron.monthly
-      - cron.d
+  with_items:
+    - crontab
+    - cron.hourly
+    - cron.daily
+    - cron.weekly
+    - cron.monthly
+    - cron.d
 
 - name: Set SSH protocol to 2
   lineinfile: dest=/etc/ssh/sshd_config regexp="^Protocol " line="Protocol 2"
