@@ -57,7 +57,7 @@
   notify: restart sshd
 
 - name: Set SSH IgnoreRhosts to yes
-  lineinfile: dest=/etc/ssh/sshd_config regext="^IgnoreRhosts " line="IgnoreRhosts yes"
+  lineinfile: dest=/etc/ssh/sshd_config regexp="^IgnoreRhosts " line="IgnoreRhosts yes"
   notify: restart sshd
 
 - name: Set SSH HostbasedAuthentication to no
