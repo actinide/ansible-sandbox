@@ -1,0 +1,26 @@
+### roles/hardened/tasks/banners.yml -
+### Authored 2015 by Heather Huggins
+###
+### Covers the following CIS Benchmark sections:
+### 11.1 Set Warning Banner for Standard Login Services
+
+---
+- name: Set warning banner for standard login services
+  copy: >
+   src={{ item }}
+   dest=/etc/{{ item }}
+  with_items:
+    - motd
+    - issue
+    - issue.net
+
+- name: Set ownership and permissions for login banner
+  file: >
+    path=/etc/{{ item }}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+    - motd
+    - issue
+    - issue.net

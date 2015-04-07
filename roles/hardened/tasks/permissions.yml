@@ -1,0 +1,25 @@
+### roles/hardened/tasks/permissions.yml -
+### Authored 2015 by Heather Huggins
+###
+### Covers the following CIS Benchmark sections:
+### 12.1 Verify Permissions on /etc/passwd
+### 12.2 Verify Permissions on /etc/shadow
+### 12.3 Verify Permissions on /etc/group
+
+---
+- name: Set ownership and permissions for /etc/passwd
+  file: >
+    path=/etc/{{ item }}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+    - passwd
+    - group
+
+- name: Set ownership and permissions for /etc/shadow
+  file: >
+    path=/etc/shadow
+    owner=root
+    group=shadow
+    mode=0640

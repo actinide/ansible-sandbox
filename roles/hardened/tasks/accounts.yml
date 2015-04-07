@@ -1,6 +1,9 @@
-### roles/accounts.yml -
-### Authored 2015 by Actinide
+### roles/hardened/tasks/accounts.yml -
+### Authored 2015 by Heather Huggins
 ###
-### CIS Benchmark
+### Covers the following CIS Benchmark sections:
+### 10.5 Lock Inactive User Accounts
 
 ---
+- name: Disable accounts that have been inactive for 90 days
+  shell: useradd -D -f 90

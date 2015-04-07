@@ -1,17 +1,20 @@
 ### roles/additionalprocess.yml - Additional process hardening
 ### Authored 2015 by Heather Huggins
 ###
-### CIS Benchmark 4.1: Restrict core dumps
+### CIS Benchmark 4.1 Restrict core dumps
+### CIS Benchmark 4.3 Enable randomized virtual memory region placement
 
 ---
-- name: Disable core dumps
-  lineinfile:
-  dest: /etc/security/limits.conf
-  state: present
-  line: '* hard core 0'
-  regexp: '\* *hard *core *0'
-  lineinfile:
-  dest: /etc/sysctl.conf
-  state: present
-  line: 'fs.suid_dumpable = 0'
-  regexp:'*fs.suid_dumpable *0'
+- name: Disable core dumps in pam
+  lineinfile: dest=/etc/security/limits.conf state=present line="* hard core 0"
+
+- name: Disable core dumps in sysctl
+  lineinfile: dest=/etc/sysctl.conf state=present line="fs.suid_dumpable = 0"
+
+- name: Enable randomized virtual memory region placement
+  lineinfile: dest=/etc/sysctl.conf state=present line="kernel.randomize_va_space = 2"
+
+- name: Disable prelink
+  apt:
+    name: prelink
+    state: absent
