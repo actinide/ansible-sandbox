@@ -46,6 +46,7 @@
     - samba-ad-dc
     - squid3
     - snmpd
+  ignore_errors: yes
 
 ### Remove packages
 - name: Make sure insecure base OS packages are not installed
@@ -60,6 +61,7 @@
     - tftp
     - atftp
     - xinetd
+  ignore_errors: yes
 
 - name: Make sure insecure special purpose services are not enabled
   apt: pkg={{ item }} state=absent purge=yes
@@ -77,6 +79,7 @@
     - squid3
     - snmpd
     - biosdevname
+  ignore_errors: yes
 
 - name: Clean up removed packages
   shell: apt-get -y autoremove
