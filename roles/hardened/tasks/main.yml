@@ -9,7 +9,7 @@
 - include: patch.yml
 
 # Securing the filesystem (CIS Section 2)
-# Include this again later.
+# TBD.
 
 # Secure boot settings (CIS Section 3)
 - include: boot.yml
@@ -19,3 +19,24 @@
 
 # OS Services (CIS Sections 5 & 6)
 - include: services.yml
+
+# Network configuration (CIS Section 7)
+- include: networkconfig.yml
+
+# Logging and auditing (CIS Section 8)
+# See the "logging" role for logstash-forwarder installation and configuration.
+
+# System access, authentication, and authorization (CIS Section 9)
+- include: access.yml
+
+# User accounts and environments (CIS Section 10)
+- include: accounts.yml
+
+# Warning banners (CIS Section 11)
+- include: banners.yml
+
+# Verify system file permissions (CIS Section 12)
+- include: permissions.yml
+
+# Review user and group settings (CIS Section 13)
+# TBD.
