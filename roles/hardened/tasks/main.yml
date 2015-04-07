@@ -9,4 +9,13 @@
 - include: patch.yml
 
 # Securing the filesystem (CIS Section 2)
-- include: filesystem.yml
+# Include this again later.
+
+# Secure boot settings (CIS Section 3)
+- include: boot.yml
+
+# Additional process hardening (CIS Section 4)
+- include: additionalprocess.yml
+
+# OS Services (CIS Sections 5 & 6)
+- include: services.yml

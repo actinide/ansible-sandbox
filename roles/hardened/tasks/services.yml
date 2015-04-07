@@ -1,0 +1,56 @@
+### roles/hardened/tasks/services.yml - Manages the presence or absence of
+### packages, and their basic configuration.
+### Authored 2015 by Heather Huggins
+###
+### Covers the following CIS Benchmark sections:
+### 5.1.1 Ensure NIS is not enabled
+### 5.1.2 Ensure rsh server is not enabled
+### 5.1.3 Ensure rsh client is not enabled
+### 5.1.4 Ensure talk server is not enabled
+### 5.1.5 Ensure talk client is not enabled
+### 5.1.6 Ensure telnet server is not enabled
+### 5.1.7 Ensure tftp-server is not enabled
+### 5.1.8 Ensure xinetd is not enabled
+### 6.1 Ensure the X Window system is not enabled
+### 6.2 Ensure Avahi Server is not enabled
+### 6.3 Ensure print server is not enabled
+### 6.4 Ensure DHCP Server is not enabled
+### 6.6 Ensure LDAP is not enabled
+### 6.8 Ensure DNS Server is not enabled
+### 6.9 Ensure FTP Server is not enabled
+### 6.11 Ensure IMAP and POP server is not enabled
+### 6.12 Ensure Samba is not enabled
+### 6.13 Ensure Squid Proxy Server is not enabled
+### 6.14 Ensure SNMP Server is not enabled
+### 6.17 Ensure Biosdevname is not enabled
+
+---
+### Remove packages
+- name: Ensure various base OS packages are not installed
+  apt: pkg=$item state=absent
+  with_items:
+    - nis
+    - rsh-server
+    - rsh-client
+    - rsh-redone-client
+    - talk
+    - telnetd
+    - tftp
+    - xinetd
+
+- name: Ensure various special purpose services are not enabled
+  apt: pkg=$item state=absent
+  with_items:
+    - xserver-xorg-core
+    - avahi-daemon
+    - cups
+    - isc-dhcp-server
+    - isc-dhcp-server6
+    - slapd
+    - bind9
+    - vsftpd
+    - dovecot
+    - samba
+    - squid3
+    - snmpd
+    - biosdevname

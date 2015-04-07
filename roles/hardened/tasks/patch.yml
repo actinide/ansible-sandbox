@@ -1,4 +1,4 @@
-### roles/patch.yml - Applies system-wide patches and security updates
+### roles/hardened/tasks/patch.yml - Applies system-wide patches and security updates
 ### Authored 2015 by Heather Huggins
 ###
 ### CIS Benchmark 1.1: Install updates, patches, and security software

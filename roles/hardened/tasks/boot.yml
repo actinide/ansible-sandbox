@@ -1,0 +1,13 @@
+### roles/hardened/tasks/boot.yml -
+### Authored 2015 by Heather Huggins
+###
+### CIS Benchmark 3.1 Set appropriate user/group ownership on bootloader
+### CIS Benchmark 3.2 Set permissions on bootloader config
+
+---
+- name: Enforce ownership and permissions on bootloader config
+  file:
+    path: /boot/grub/grub.cfg
+    owner: root
+    group: root
+    mode: 0400
