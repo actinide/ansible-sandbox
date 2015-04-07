@@ -2,7 +2,6 @@
 ### Authored 2015 by Heather Huggins
 ###
 ### Covers the following CIS Benchmark sections:
-### 9.1.1 Enable cron daemon
 ### 9.1.2 Set User/Group Owner and Permission on /etc/crontab
 ### 9.1.3 Set User/Group Owner and Permission on /etc/cron.hourly
 ### 9.1.4 Set User/Group Owner and Permission on /etc/cron.daily
@@ -20,12 +19,9 @@
 
 
 ---
-- name: Ensure the cron daemon is enabled
-  lineinfile: dest=/etc/init/cron.conf state=present line="start on runlevel [2345]"
-
 - name: Set owner and permissions on cron files
   file:
-    path: /etc/{{ item }}
+    path: "/etc/{{ item }}"
     owner: root
     group: root
     mode: 0600
