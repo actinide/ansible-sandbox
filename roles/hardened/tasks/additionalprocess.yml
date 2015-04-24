@@ -1,4 +1,4 @@
-### roles/additionalprocess.yml - Additional process hardening
+### roles/hardened/tasks/additionalprocess.yml - Additional process hardening
 ### Authored 2015 by Heather Huggins
 ###
 ### CIS Benchmark 4.1 Restrict core dumps
