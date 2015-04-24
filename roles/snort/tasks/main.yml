@@ -6,4 +6,7 @@
 ---
 
 # Install Snort
-- include: install.yml
+- include: install_snort.yml
+
+# Install Barnyard
+- include: install_barnyard.yml
