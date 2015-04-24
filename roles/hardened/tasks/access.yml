@@ -35,11 +35,11 @@
 
 - name: Set SSH protocol to 2
   lineinfile: dest=/etc/ssh/sshd_config regexp="^Protocol " line="Protocol 2"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set LogLevel to INFO
   lineinfile: dest=/etc/ssh/sshd_config regexp="^LogLevel " line="LogLevel INFO"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set permissions on sshd_config
   file:
@@ -50,24 +50,24 @@
 
 - name: Disable X11 forwarding
   lineinfile: dest=/etc/ssh/sshd_config regexp="^X11Forwarding " line="X11Forwarding no"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set SSH MaxAuthTries to 4 or less
   lineinfile: dest=/etc/ssh/sshd_config regexp="^MaxAuthTries " line="MaxAuthTries 4"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set SSH IgnoreRhosts to yes
   lineinfile: dest=/etc/ssh/sshd_config regexp="^IgnoreRhosts " line="IgnoreRhosts yes"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set SSH HostbasedAuthentication to no
   lineinfile: dest=/etc/ssh/sshd_config regexp="^HostbasedAuthentication " line="HostbasedAuthentication no"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set SSH PermitEmptyPasswords to no
   lineinfile: dest=/etc/ssh/sshd_config regexp="^PermitEmptyPasswords " line="PermitEmptyPasswords no"
-  notify: restart sshd
+  notify: restart ssh
 
 - name: Set SSH banner
   lineinfile: dest=/etc/ssh/sshd_config regexp="^Banner " line="Banner /etc/issue.net"
-  notify: restart sshd
+  notify: restart ssh

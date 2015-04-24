@@ -1,0 +1,57 @@
+### roles/snort/tasks/install.yml
+###
+### Runs through the installation tasks for Snort.
+###
+### Authored 3/2015 by Heather Huggins
+---
+
+# Make sure install dependencies are installed
+# (Department of Redundancy Department)
+- name: Update apt-get
+  command: apt-get update
+
+- name: Install dependencies
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - build-essential
+    - libpcap-dev
+    - libpcre3-dev
+    - libdumbnet-dev
+    - bison
+    - flex
+    - zlib1g-dev
+
+- name: Ensure snort install directory is present
+  file: path=/tmp/snort state=directory
+
+- name: Download packages
+  command: wget {{ item }} /tmp/snort
+  with_items:
+    - https://www.snort.org/downloads/snort/daq-2.0.4.tar.gz
+    - https://www.snort.org/downloads/snort/snort-2.9.7.0.tar.gz
+
+- name: De-tar the tarballs
+  command: tar -xvzf /tmp/snort/*.tar.gz
+
+- name: Build DAQ
+  command: chdir=/tmp/snort/daq-2.0.4/{{ item }}
+  with_items:
+    - ./configre
+    - make
+    - make install
+
+- name: Build Snort
+  command: chdir=/tmp/snort/snort-2.9.7.0/{{ item }}
+  with_items:
+    - ./configre
+    - make
+    - make install
+
+- name: Update shared libraries
+  command: ldconfig
+
+- name: Link the Snort binaries
+  file: >
+    src=/usr/local/bin/snort
+    dest=/usr/sbin/snort
+    state=link

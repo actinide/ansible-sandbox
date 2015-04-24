@@ -18,6 +18,7 @@
     - docker.io
     - python-dev
     - python-pip
+    - chef
 
 - name: Install boto
   pip: name=boto

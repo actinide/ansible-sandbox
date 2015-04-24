@@ -1,7 +1,8 @@
 ---
-- name: Hardening for Debian based servers
+- name: Configuring a Snort server
   hosts: self
   sudo: true
 
   roles:
     - { role: hardened }
+    - { role: snort }
