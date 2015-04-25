@@ -18,4 +18,4 @@
   mysql_user: name=root password={{ mysql_root_db_pass }}
 
 - name: Make sure Snort output is in binary format
-  lineinfile: dest=/etc/snort/snort.conf regexp="^output unified2: filename " line="output unified2: filename snort.u2, limit 128"
+  lineinfile: "dest=/etc/snort/snort.conf regexp='^output unified2: filename' line='output unified2: filename snort.u2, limit 128'"
