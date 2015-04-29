@@ -10,3 +10,6 @@
 
 # Install Barnyard
 - include: install_barnyard.yml
+
+# Install PulledPork
+- include: install_pulledpork.yml

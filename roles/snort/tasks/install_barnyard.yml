@@ -47,7 +47,7 @@
   unarchive: src={{ item.path }} dest=/tmp/barnyard/
   with_items:
     - { path: '/tmp/barnyard/master.tar.gz' }
-    - { path: '/tmp/barnyard/daq-2.0.4.tar.gz' }
+    - { path: '/tmp/barnyard/daq.2.0.4.tar.gz' }
 
 - name: Build DAQ
   command: "{{ item }} chdir=/tmp/barnyard/daq-2.0.4"
