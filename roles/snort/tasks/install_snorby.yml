@@ -18,7 +18,7 @@
   mysql_user: "name=snorby password={{ mysql_snorby_db_pass }} priv=snorby.*:create,insert,select,delete,update"
 
 - name: Place Snorby config files
-  copy: src={{ item }} dest=/etc/snort/{{ item }}
+  copy: src={{ item }} dest=/opt/snorby/config/{{ item }}
   with_items:
     - database.yml
     - snorby_config.yml
