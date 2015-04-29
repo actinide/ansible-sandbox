@@ -38,10 +38,10 @@
   file: path=/tmp/barnyard state=directory
 
 - name: Download Barnyard2
-  get_url: url={{ item.url }} dest=/tmp/barnyard/ validate_certs=no
+  get_url: url={{ item.url }} dest=/tmp/barnyard/{{ item.name }} validate_certs=no
   with_items:
-    - { url: 'https://github.com/firnsy/barnyard2/archive/master.tar.gz' }
-    - { url: 'https://www.snort.org/downloads/snort/daq-2.0.4.tar.gz' }
+    - { url: 'https://github.com/firnsy/barnyard2/archive/master.tar.gz', name: 'master.tar.gz' }
+    - { url: 'https://www.snort.org/downloads/snort/daq-2.0.4.tar.gz', name: 'daq.2.0.4.tar.gz' }
 
 - name: Untar the tars
   unarchive: src={{ item.path }} dest=/tmp/barnyard/
