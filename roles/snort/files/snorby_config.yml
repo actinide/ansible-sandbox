@@ -1,0 +1,9 @@
+production:
+  domain: 'snorby.yourdomain.com' # can be changed to your domain
+  wkhtmltopdf: /usr/bin/wkhtmltopdf # correct for Ubuntu 12.04
+  ssl: false
+  mailer_sender: 'snorby@yourdomain.com'  # can be changed
+  geoip_uri: "http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz"
+  rules:
+    - ""
+  authentication_mode: database

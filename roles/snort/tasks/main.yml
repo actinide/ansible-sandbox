@@ -5,6 +5,9 @@
 ### Authored 3/2015 by Heather Huggins
 ---
 
+# Install dependencies
+- include: install_dependencies.yml
+
 # Install Snort
 - include: install_snort.yml
 
@@ -13,3 +16,6 @@
 
 # Install PulledPork
 - include: install_pulledpork.yml
+
+# Install Snorby
+- include: install_snorby.yml

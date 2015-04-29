@@ -1,0 +1,30 @@
+### roles/snort/tasks/install_snorby.yml
+###
+### Runs through the installation tasks for Snorby
+###
+### Authored 3/2015 by Heather Huggins
+---
+
+- name: Grab Snorby from GitHub
+  git: repo=http://github.com/Snorby/snorby.git dest=/opt/snorby
+
+- name: Install Snorby
+  command: bundle install chdir=/opt/snorby
+
+- name: Create a Snorby MySQL database
+  mysql_db: name=snorby state=present
+
+- name: Create the Snorby DB user
+  mysql_user: "name=snorby password={{ mysql_snorby_db_pass }} priv=snorby.*:create,insert,select,delete,update"
+
+- name: Place Snorby config files
+  copy: src={{ item }} dest=/etc/snort/{{ item }}
+  with_items:
+    - database.yml
+    - snorby_config.yml
+
+- name: Run the Snorby setup program
+  command: bundle exec rake snorby:setup chdir=/opt/snorby
+
+- name: Ensure Snorby runs
+  command: bundle exec rails server -e production

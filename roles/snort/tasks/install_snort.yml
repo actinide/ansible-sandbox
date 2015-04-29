@@ -1,23 +1,9 @@
-### roles/snort/tasks/install.yml
+### roles/snort/tasks/install_snort.yml
 ###
-### Runs through the installation tasks for Snort.
+### Runs through the installation tasks for Snort
 ###
 ### Authored 3/2015 by Heather Huggins
 ---
-- name: Update apt-get
-  command: apt-get update
 
 - name: Install Snort and its dependencies
-  apt: pkg={{ item }} state=installed
-  with_items:
-    - build-essential
-    - libpcap-dev
-    - libpcre3-dev
-    - libdumbnet-dev
-    - bison
-    - flex
-    - zlib1g-dev
-    - snort
-
-- name: Update shared libraries
-  command: ldconfig
+  apt: pkg=snort state=installed

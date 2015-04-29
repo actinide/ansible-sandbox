@@ -1,0 +1,48 @@
+### roles/snort/tasks/install_dependencies.yml
+###
+### Runs through the installation of Snort's dependencies
+###
+### Authored 3/2015 by Heather Huggins
+---
+
+- name: Install dependencies
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - build-essential
+    - python-pip
+    - python-dev
+    - mysql-server
+    - mysql-client
+    - libmysqlclient-dev
+    - autoconf
+    - libtool
+    - libpcap-dev
+    - libdumbnet-dev
+    - libdnet-dev
+    - libpcre3-dev
+    - bison
+    - flex
+    - zlib1g-dev
+    - libcrypt-ssleay-perl
+    - liblwp-useragent-determined-perl
+    - apache2
+    - git
+    - imagemagick
+    - wkhtmltopdf
+    - ruby1.9.3
+    - libyaml-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - zlib1g-dev
+    - openssl
+    - libssl-dev
+    - bundler
+
+- name: Update shared libraries
+  command: ldconfig
+
+- name: Install rails and rake
+  gem: name={{ item }} state=present
+  with_items:
+    - rails
+    - rake

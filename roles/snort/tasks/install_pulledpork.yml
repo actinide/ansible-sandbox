@@ -1,19 +1,9 @@
 ### roles/snort/tasks/install_pulledpork.yml
 ###
-### Runs through the installation tasks for Snort.
+### Runs through the installation tasks for PulledPork
 ###
 ### Authored 3/2015 by Heather Huggins
 ---
-
-- name: Install PulledPork's dependencies
-  apt: pkg={{ item }} state=installed update_cache=yes
-  with_items:
-    - libcrypt-ssleay-perl
-    - liblwp-useragent-determined-perl
-
-- name: Make newly-installed libraries available
-  command: ldconfig
-
 - name: Download PulledPork
   get_url: url={{ item.url }} dest=/tmp/barnyard/ validate_certs=no
   with_items:
