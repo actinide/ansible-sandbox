@@ -91,3 +91,12 @@
 
 - name: Tell Barnyard2 how to connect to its database
   lineinfile: "dest=/etc/snort/barnyard2.conf state=present line='output database: log, mysql, user=snort password={{ mysql_snort_db_pass }} dbname=snort host=localhost'"
+
+- name: Configure Barnyard2 to run as a service
+  command: "cp /tmp/barnyard/barnyard2-master/rpm/barnyard2 /etc/init.d/"
+
+- name: Make the script executable
+  command: "chmod +x /etc/init.d/barnyard2"
+
+- name: Copy the Barnyard2 .config file
+  command: "cp /tmp/barnyard/barnyard2-master/rpm/barnyard2.config /etc/sysconfig/barnyard2"
