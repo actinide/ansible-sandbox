@@ -1,0 +1,53 @@
+### roles/snort/tasks/install_pulledpork.yml
+###
+### Runs through the installation tasks for Snort.
+###
+### Authored 3/2015 by Heather Huggins
+---
+
+- name: Install PulledPork's dependencies
+  apt: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+    - libcrypt-ssleay-perl
+    - liblwp-useragent-determined-perl
+
+- name: Make newly-installed libraries available
+  command: ldconfig
+
+- name: Download PulledPork
+  get_url: url={{ item.url }} dest=/tmp/barnyard/ validate_certs=no
+  with_items:
+    - { url: 'https://pulledpork.googlecode.com/files/pulledpork-0.7.0.tar.gz' }
+
+- name: Untar the tars
+  unarchive: src={{ item.path }} dest=/tmp/barnyard/
+  with_items:
+    - { path: '/tmp/barnyard/pulledpork-0.7.0.tar.gz' }
+
+- name: Move the script
+  command: "cp /tmp/barnyard/pulledpork-0.7.0/pulledpork.pl /usr/local/bin"
+
+- name: Make the script executable
+  command: "chmod +x /usr/local/bin/pulledpork.pl"
+
+- name: Copy configuration files
+  command: mv /tmp/barnyard/pulledpork-0.7.0/etc/{{ item.config }} /etc/snort/
+  with_items:
+    - { config: 'disablesid.conf' }
+    - { config: 'dropsid.conf' }
+    - { config: 'enablesid.conf' }
+    - { config: 'modifysid.conf' }
+    - { config: 'pulledpork.conf' }
+
+- name: Create the iplists directory
+  file: path=/etc/snort/rules/iplists state=directory
+
+- name: Create the default blacklist
+  file: path=/etc/snort/rules/iplists/default.blacklist state=touch
+
+- name: Copy config file
+  copy: src=pulledpork.conf dest=/etc/snort/pulledpork.conf
+  notify: run pulledpork
+
+- name: Create a cron job to run PulledPork daily
+  cron: name="run pulledpork" minute="00" hour="04" job="/usr/local/bin/pulledpork.pl -c /etc/snort/pulledpork.conf -l"

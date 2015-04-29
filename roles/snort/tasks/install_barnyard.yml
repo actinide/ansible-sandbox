@@ -5,17 +5,89 @@
 ### Authored 3/2015 by Heather Huggins
 ---
 
-- name: Install Barnyard2 and its dependencies
-  apt: pkg={{ item }} state=installed
+- name: Install Barnyard2's dependencies
+  apt: pkg={{ item }} state=installed update_cache=yes
   with_items:
+    - python-pip
+    - python-dev
     - mysql-server
     - libmysqlclient-dev
     - mysql-client
     - autoconf
     - libtool
+    - libpcap-dev
+    - libdumbnet-dev
+    - libdnet-dev
 
-- name: Update mysql root password
+- name: Tell things where to find dnet.h
+  file: src=/usr/include/dumbnet.h dest=/usr/include/dnet.h state=link
+
+- name: Make newly-installed libraries available
+  command: ldconfig
+
+- name: Install pip MySQLdb for Python interaction with MySQL
+  pip: name=MySQL-python
+
+- name: Update mySQL root password
   mysql_user: name=root password={{ mysql_root_db_pass }}
 
 - name: Make sure Snort output is in binary format
   lineinfile: "dest=/etc/snort/snort.conf regexp='^output unified2: filename' line='output unified2: filename snort.u2, limit 128'"
+
+- name: Make a temp directory for installations
+  file: path=/tmp/barnyard state=directory
+
+- name: Download Barnyard2
+  get_url: url={{ item.url }} dest=/tmp/barnyard/ validate_certs=no
+  with_items:
+    - { url: 'https://github.com/firnsy/barnyard2/archive/master.tar.gz' }
+    - { url: 'https://www.snort.org/downloads/snort/daq-2.0.4.tar.gz' }
+
+- name: Untar the tars
+  unarchive: src={{ item.path }} dest=/tmp/barnyard/
+  with_items:
+    - { path: '/tmp/barnyard/master.tar.gz' }
+    - { path: '/tmp/barnyard/daq-2.0.4.tar.gz' }
+
+- name: Build DAQ
+  command: "{{ item }} chdir=/tmp/barnyard/daq-2.0.4"
+  with_items:
+    - ./configure
+    - make
+    - make install
+
+- name: Build Barnyard2
+  command: "{{ item }} chdir=/tmp/barnyard/barnyard2-master"
+  with_items:
+    - ./autogen.sh
+    - ./configure --with-mysql --with-mysql-libraries=/usr/lib/x86_64-linux-gnu
+    - make
+    - make install
+
+- name: Move barnyard2.conf
+  command: mv /tmp/barnyard/barnyard2-master/etc/barnyard2.conf /etc/snort/
+
+- name: Create barnyard log directory
+  file: path=/var/log/barnyard2 state=directory owner=snort group=snort
+
+- name: Create barnyard file in snort log directory
+  file: path=/var/log/snort/barnyard2.waldo state=touch owner=snort group=snort
+
+- name: Create map file in snort config directory
+  file: path=/etc/snort/sid-msg.map state=touch
+
+- name: Create a Snort MySQL database
+  mysql_db: name=snort state=present
+
+- name: Import schema
+  mysql_db: name=snort state=import target=/tmp/barnyard/barnyard2-master/schemas/create_mysql
+  ignore_errors: yes
+
+- name: Update mySQL root password
+  mysql_user: name=root password={{ mysql_root_db_pass }}
+
+- name: Create the Snort DB user
+  mysql_user: "name=snort password={{ mysql_snort_db_pass }} priv=snort.*:create,insert,select,delete,update"
+
+- name: Tell Barnyard2 how to connect to its database
+  lineinfile: "dest=/etc/snort/barnyard2.conf state=present line='output database: log, mysql, user=snort password={{ mysql_snort_db_pass }} dbname=snort host=localhost'"

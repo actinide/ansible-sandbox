@@ -1,3 +1,6 @@
 ---
-- name: restart logstash
-  service: name=logstash state=restarted
+- name: restart snort
+  service: name=snort state=restarted
+
+- name: run pulledpork
+  command: "/usr/local/bin/pulledpork.pl -c /etc/snort/pulledpork.conf -l"
