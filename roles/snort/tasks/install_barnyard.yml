@@ -97,6 +97,3 @@
 
 - name: Make the script executable
   command: "chmod +x /etc/init.d/barnyard2"
-
-- name: Copy the Barnyard2 .config file
-  command: "cp /tmp/barnyard/barnyard2-master/rpm/barnyard2.config /etc/sysconfig/barnyard2"
