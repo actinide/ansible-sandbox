@@ -6,9 +6,17 @@
 snorby: &snorby
   adapter: mysql
   username: snorby
-  password: 
+  password: ''
   host: 127.0.0.1 # or the IP of your database server
 
 development:
   database: snorby
-  <
+  <<: *snorby
+
+test:
+  database: snorby
+  <<: *snorby
+
+production:
+  database: snorby
+  <<: *snorby

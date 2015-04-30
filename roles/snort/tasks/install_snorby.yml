@@ -23,8 +23,11 @@
     - database.yml
     - snorby_config.yml
 
-- name: Run the Snorby setup program
-  command: bundle exec rake snorby:setup chdir=/opt/snorby
+- name: Install missing gems
+  command: bash -c 'cd /opt/snorby && bundle install'
+
+- name: Snorby setup
+  command: bash -c 'cd /opt/snorby && bundle exec rake snorby:setup RAILS_ENV=production --trace'
 
 - name: Ensure Snorby runs
   command: bundle exec rails server -e production
